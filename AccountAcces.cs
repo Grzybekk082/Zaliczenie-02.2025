@@ -11,10 +11,13 @@ namespace Zaliczenie_02._2025
     {
         internal string userName, userSurename, userPassword, userLogin;
 
-        static string directoryPath = Path.Combine("C:\\Users\\dell\\source\\repos\\Zaliczenie 02.2025\\Accounts");
-        static int equals = Directory.GetFiles(directoryPath).Length;
-        
+        static string directoryPath = Path.Combine("C:\\Users\\dell\\source\\repos\\Zaliczenie 02.2025\\Accounts\\usersData");
+        internal static int equals = Directory.GetFiles(directoryPath).Length;
 
+        internal static string inputLogin,
+                        inputPassword,
+                        corectLogin,
+                        corectPassword;
         internal AccountAcces(string name, string surename, string password, string login)
         {
             
@@ -28,7 +31,7 @@ namespace Zaliczenie_02._2025
 
         static internal bool IsLoginFree( string name)
         {
-         bool isLoginOccupied = false;
+         bool isLoginOccupied = true;
         string inputLogin = name,
                    corectLogin;
 
@@ -42,7 +45,7 @@ namespace Zaliczenie_02._2025
 
                 if (corectLogin.Equals(inputLogin))
                 {
-                    isLoginOccupied = true;
+                    isLoginOccupied = false;
                 }
                 else
                 {
@@ -59,8 +62,6 @@ namespace Zaliczenie_02._2025
         static internal bool LogIn(string login, string password)
         {
 
-
-
             string inputLogin = login,
                    inputPassword = password,
                    corectLogin,
@@ -71,11 +72,9 @@ namespace Zaliczenie_02._2025
 
             for (int i = 1;i<=equals;i++)
             {
-                string pathUsers = $"{directoryPath}\\user{i}.txt";
-                StreamReader sr = new StreamReader(pathUsers);
-                corectLogin=sr.ReadLine();
-                corectPassword=sr.ReadLine();
-                sr.Dispose();
+                (string tutleName,string tutleSurename)t1 = ReturnInfo(i);
+                corectLogin=t1.tutleName;
+                corectPassword=t1.tutleSurename;
                 
                 if(corectLogin.Equals(inputLogin)&&corectPassword.Equals(inputPassword))
                 {
@@ -90,6 +89,7 @@ namespace Zaliczenie_02._2025
                     continue;
                 }
             }
+            
             return isCorect;
         }
         public void AccountCreator(string name, string surename, string password, string login)
@@ -99,6 +99,19 @@ namespace Zaliczenie_02._2025
                 string content = $"{userName}\n{userSurename}\n{userPassword}\n{userLogin}\n";
 
                 File.AppendAllText(userPath,content);
+            
+        }
+
+        internal static (string , string )  ReturnInfo( int i)
+        {
+
+                string pathUsers = $"{directoryPath}\\user{i}.txt";
+                StreamReader sr = new StreamReader(pathUsers);
+                corectLogin = sr.ReadLine();
+                corectPassword = sr.ReadLine();
+                sr.Dispose();
+
+            return (corectLogin,  corectPassword);
         }
 
 
