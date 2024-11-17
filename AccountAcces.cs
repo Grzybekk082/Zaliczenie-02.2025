@@ -20,7 +20,11 @@ namespace Zaliczenie_02._2025
             userPassword = password;
             userLogin = login;
         }
-        internal string AccountCreator
+        internal string AccountCreator()
+        {
+
+        return userName; 
+        }
         static internal bool LogIn(string login, string password)
         {
 
