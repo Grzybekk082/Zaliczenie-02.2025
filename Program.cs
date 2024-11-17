@@ -10,7 +10,7 @@ namespace Zaliczenie_02._2025
     {
         static void Main(string[] args)
         {
-            string login, password;
+            string login, password, newName, newSurename, newPassword, newLogin;
 
             Console.WriteLine("SERVICEDESK");
             Console.WriteLine(@"/-------------------------------------\");
@@ -40,7 +40,23 @@ namespace Zaliczenie_02._2025
                 Console.WriteLine();
 
                 Console.WriteLine("Podaj imię : ");
+                newName= Console.ReadLine();
                 Console.WriteLine("Podaj nazwisko : ");
+                newSurename= Console.ReadLine();
+                Console.WriteLine("Utwórz hasło : ");
+                newPassword= Console.ReadLine();
+                Console.WriteLine("Utwórz login : ");
+                newLogin= Console.ReadLine();
+
+                if(AccountAcces.IsLoginFree(newName))
+                {
+                    Console.WriteLine("Login jest zajęty, spróbuj ponownie");
+                }
+                else
+                {
+                    AccountAcces ac = new AccountAcces(newName, newSurename, newPassword, newLogin);
+                }
+
 
             }
 
