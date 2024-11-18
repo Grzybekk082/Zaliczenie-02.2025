@@ -31,7 +31,7 @@ namespace Zaliczenie_02._2025
             {
                 Console.WriteLine("taki użytkownik istnieje");
                 DataAndFilesManagement.DirectoriesCreator();
-                DataAndFilesManagement.CheckDirectories();
+                DataAndFilesManagement.DeleteUnnecessaryDirectories();
             }
             else
             { 
