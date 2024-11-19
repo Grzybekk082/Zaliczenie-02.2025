@@ -13,8 +13,6 @@ namespace Zaliczenie_02._2025
 
         static string directoryPath = Path.Combine("C:\\Users\\dell\\source\\repos\\Zaliczenie 02.2025\\Accounts\\usersData");
         //ścieżka do folderu z plikami "user#", przechowuje podstawowe dane logowania do konta(imie, nazwisko, login, hasło
-        internal static int equals = Directory.GetFiles(directoryPath).Length;
-        //Oblicza aktualną liczbę użytkownikó w folderze userData
 
         internal static string inputLogin,
                         inputPassword,
@@ -32,6 +30,7 @@ namespace Zaliczenie_02._2025
             userLogin = login;
 
             AccountCreator(userName, userSurename, userPassword, userLogin);
+            DataAndFilesManagement.DirectoriesCreator();
         }
         
         //Metoda sprawdza, czy Login podany przez nowego użytkownika nie istnieje już w bazie, porównuje ze sobą inputLogin
@@ -42,7 +41,7 @@ namespace Zaliczenie_02._2025
         string inputLogin = name,
                    corectLogin;
 
-            for (int i = 1; i <= equals; i++)
+            for (int i = 1; i <= ReturnUsersNumber(); i++)
             {
                 string pathUsers = $"{directoryPath}\\user{i}.txt";
                 StreamReader sr = new StreamReader(pathUsers);
@@ -57,7 +56,7 @@ namespace Zaliczenie_02._2025
                 }
                 else
                 {
-                    if (i == equals)
+                    if (i == ReturnUsersNumber())
                     {
                         break;
                     }
@@ -79,8 +78,7 @@ namespace Zaliczenie_02._2025
 
             bool isCorect=false;
              
-
-            for (int i = 1;i<=equals;i++)
+            for (int i = 1;i<= ReturnUsersNumber(); i++)
             {
                 (string tutleName,string tutleSurename)t1 = ReturnInfo(i);
                 corectLogin=t1.tutleName;
@@ -92,25 +90,23 @@ namespace Zaliczenie_02._2025
                 }
                 else
                 {
-                    if( i==equals)
+                    if( i== ReturnUsersNumber())
                     {
                         break;
                     }
                     continue;
                 }
             }
-            
             return isCorect;
         }
         //Metoda mająca za zadanie jedynie utworzenie pliku .txt z nowym użytkownikiem, jest wywoływana w konstruktorze
         public void AccountCreator(string name, string surename, string password, string login)
         {
-                string userId = $"user{equals + 1}.txt";
+                string userId = $"user{ReturnUsersNumber() + 1}.txt";
                 string userPath = $"{directoryPath}\\{userId}";
                 string content = $"{userName}\n{userSurename}\n{userPassword}\n{userLogin}\n";
 
                 File.AppendAllText(userPath,content);
-            
         }
         //Metoda korzystająca z tutle, zwracająca z folderu userData z plików "user#" prawidłowy login i hasło, dzięki tutle
         //można zwracać więcej wartości na raz.
@@ -125,7 +121,11 @@ namespace Zaliczenie_02._2025
 
             return (corectLogin,  corectPassword);
         }
+        //Oblicza i zwraca aktualną liczbę użytkownikó w folderze userData
 
-
+        static internal int ReturnUsersNumber()
+        {
+            return Directory.GetFiles(directoryPath).Length;
+        }
     }
 }
