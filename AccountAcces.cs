@@ -11,7 +11,7 @@ namespace Zaliczenie_02._2025
     {
         internal string userName, userSurename, userPassword, userLogin;
 
-        static string directoryPath = Path.Combine("C:\\Users\\dell\\source\\repos\\Zaliczenie 02.2025\\Accounts\\usersData");
+        static string directoryPath = Path.Combine($"{ProgramSupport.ActualyPathReturn()}\\Service\\Accounts\\usersData");
         //ścieżka do folderu z plikami "user#", przechowuje podstawowe dane logowania do konta(imie, nazwisko, login, hasło
 
         internal static string inputLogin,

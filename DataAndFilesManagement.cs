@@ -9,7 +9,8 @@ namespace Zaliczenie_02._2025
 {
     internal class DataAndFilesManagement
     {
-        static string pathOfDirectory = Path.Combine("C:\\Users\\dell\\source\\repos\\Zaliczenie 02.2025\\Accounts\\usersFiles");
+        
+        static string pathOfDirectory = Path.Combine($"{ProgramSupport.ActualyPathReturn()}\\Service\\Accounts\\usersFiles");
         static string pathOfUsers = Path.Combine();
         static int directoryEqual=Directory.GetDirectories(pathOfDirectory).Length;
 
