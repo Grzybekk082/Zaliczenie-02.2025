@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Zaliczenie_02._2025
 {
-    //Klasa utworzona w celu poprawnienia uniwersalności programu, klasa będzie rozwijana w miare potrzeb
+    //Klasa utworzona w celu poprawnienia uniwersalności programu, klasa będzie rozwijana w miare potrzEB
     internal class ProgramSupport
     {
         //Metoda pobiera aktualną ścieżkę głównego folderu programu, aby w przypadku udostępnienia programu 

@@ -21,19 +21,6 @@ namespace Zaliczenie_02._2025
             Console.WriteLine(@"/-------------------------------------\");
             Console.WriteLine("Witaj w systemie zarządzania zleceniami");
             Console.WriteLine(@"/-------------------------------------\");
-
-            // Pobieramy pełną ścieżkę do pliku wykonywalnego
-            string fullPath = Assembly.GetExecutingAssembly().Location;
-
-            // Uzyskujemy ścieżkę do folderu, w którym znajduje się EXE (np. bin/Debug)
-            string directoryPath = Path.GetDirectoryName(fullPath);
-
-            // Przechodzimy do folderu głównego aplikacji (jeden poziom wyżej)
-            string parentDirectoryPath = Directory.GetParent(directoryPath).FullName;
-            string rootDirectoryPath = Directory.GetParent(parentDirectoryPath).FullName;
-
-            Console.WriteLine(rootDirectoryPath);
-
             Console.WriteLine("Logowanie");
             Console.WriteLine();
 
