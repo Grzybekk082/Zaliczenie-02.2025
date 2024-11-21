@@ -9,27 +9,29 @@ namespace Zaliczenie_02._2025
 {
        internal class AccountAcces
     {
-        internal string userName, userSurename, userPassword, userLogin;
+        string userName, userSurename, userPassword, userLogin, userPermissions;
 
         static string directoryPath = Path.Combine($"{ProgramSupport.ActualyPathReturn()}\\Service\\Accounts\\usersData");
         //ścieżka do folderu z plikami "user#", przechowuje podstawowe dane logowania do konta(imie, nazwisko, login, hasło
 
-        internal static string inputLogin,
+         static string inputLogin,
                         inputPassword,
                         corectLogin,
-                        corectPassword;
+                        corectPassword,
+                        isAdmin;
 
         internal AccountAcces() { }
         //Konstruktor, Pobiera od nowego użytkownika podstawowe dane logowania i wywołuje w sobie funkcję tworzącą nowe konto.
-        internal AccountAcces(string name, string surename, string password, string login)
+        internal AccountAcces(string name, string surename, string permissions, string password, string login)
         {
             
             userName = name;
             userSurename = surename;
             userPassword = password;
             userLogin = login;
+            userPermissions = permissions;
 
-            AccountCreator(userName, userSurename, userPassword, userLogin);
+            AccountCreator(userName, userSurename, userPermissions, userPassword, userLogin);
             DataAndFilesManagement.DirectoriesCreator();
         }
         
@@ -41,7 +43,7 @@ namespace Zaliczenie_02._2025
         string inputLogin = name,
                    corectLogin;
 
-            for (int i = 1; i <= ReturnUsersNumber(); i++)
+            for (int i = 1; i <= ReturnUsersNumber(directoryPath); i++)
             {
                 string pathUsers = $"{directoryPath}\\user{i}.txt";
                 StreamReader sr = new StreamReader(pathUsers);
@@ -56,7 +58,7 @@ namespace Zaliczenie_02._2025
                 }
                 else
                 {
-                    if (i == ReturnUsersNumber())
+                    if (i == ReturnUsersNumber(directoryPath))
                     {
                         break;
                     }
@@ -68,7 +70,7 @@ namespace Zaliczenie_02._2025
         //metoda porównuje uzyskane z metody zwrócone wartości prawidłowego loginu i hasła z danymi wprowadzonymi przez
         //użytkownika próbującego się zalogować i jeżeli takie dane istnieją w pojedynczym pliku "user#" użytkownik zostanie prawidłowo
         //zalogowany
-        static internal bool LogIn(string login, string password)
+        static internal (bool, bool)LogIn(string login, string password)
         {
 
             string inputLogin = login,
@@ -76,56 +78,63 @@ namespace Zaliczenie_02._2025
                    corectLogin,
                    corectPassword;
 
-            bool isCorect=false;
+            bool isCorect=false, isAdmin=false;
              
-            for (int i = 1;i<= ReturnUsersNumber(); i++)
+            for (int i = 1;i<= ReturnUsersNumber(directoryPath); i++)
             {
-                (string tutleName,string tutleSurename)t1 = ReturnInfo(i);
-                corectLogin=t1.tutleName;
-                corectPassword=t1.tutleSurename;
+                (string tutleName,string tutleSurename, string tutleIsAdmin)userInfoReturn = ReturnInfo(i);
+                corectLogin= userInfoReturn.tutleName;
+                corectPassword= userInfoReturn.tutleSurename;
                 
                 if(corectLogin.Equals(inputLogin)&&corectPassword.Equals(inputPassword))
                 {
                     isCorect = true;
+                    if(userInfoReturn.tutleIsAdmin.Equals("true"))
+                        {
+                        isAdmin = true;
+                        }
+
                 }
                 else
                 {
-                    if( i== ReturnUsersNumber())
+                    if( i== ReturnUsersNumber(directoryPath))
                     {
                         break;
                     }
                     continue;
                 }
             }
-            return isCorect;
+            return (isCorect,isAdmin);
         }
         //Metoda mająca za zadanie jedynie utworzenie pliku .txt z nowym użytkownikiem, jest wywoływana w konstruktorze
-        public void AccountCreator(string name, string surename, string password, string login)
+        internal void AccountCreator(string name, string surename, string permissions, string password, string login)
         {
-                string userId = $"user{ReturnUsersNumber() + 1}.txt";
+                string userId = $"user{ReturnUsersNumber(directoryPath) + 1}.txt";
                 string userPath = $"{directoryPath}\\{userId}";
-                string content = $"{userName}\n{userSurename}\n{userPassword}\n{userLogin}\n";
+                string content = $"{userName}\n{userSurename}\n{userPermissions}\n{userPassword}\n{userLogin}\n";
 
                 File.AppendAllText(userPath,content);
         }
+        
         //Metoda korzystająca z tutle, zwracająca z folderu userData z plików "user#" prawidłowy login i hasło, dzięki tutle
         //można zwracać więcej wartości na raz.
-        internal static (string , string )  ReturnInfo( int i)
+        internal static (string , string, string )  ReturnInfo( int i)
         {
 
                 string pathUsers = $"{directoryPath}\\user{i}.txt";
                 StreamReader sr = new StreamReader(pathUsers);
                 corectLogin = sr.ReadLine();
                 corectPassword = sr.ReadLine();
+                isAdmin = sr.ReadLine();
                 sr.Dispose();
 
-            return (corectLogin,  corectPassword);
+            return (corectLogin,  corectPassword, isAdmin);
         }
         //Oblicza i zwraca aktualną liczbę użytkownikó w folderze userData
 
-        static internal int ReturnUsersNumber()
+        static internal int ReturnUsersNumber(string path)
         {
-            return Directory.GetFiles(directoryPath).Length;
+            return Directory.GetFiles(path).Length;
         }
     }
 }

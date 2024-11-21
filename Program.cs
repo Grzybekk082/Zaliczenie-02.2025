@@ -32,13 +32,21 @@ namespace Zaliczenie_02._2025
                 Console.Write("Hasło : ");
                 password = Console.ReadLine();
                 Console.WriteLine();
-                bool isCorect = AccountAcces.LogIn(login, password);
+                bool isCorect = AccountAcces.LogIn(login, password).Item1;
                 if (isCorect)
                 {
-                    Console.WriteLine("taki użytkownik istnieje");
-                    DataAndFilesManagement.DirectoriesCreator();
-                    DataAndFilesManagement.DeleteUnnecessaryDirectories();
-                    break;
+                    bool isAdmin = AccountAcces.LogIn(login, password).Item2;
+                    if(isAdmin)
+                    {
+                        AdminInterface();
+                        break;
+                    }
+                    else
+                    {
+                        UserInterface();
+                        break;
+                    }
+
                 }
                 if(modulo==0)
                 {
@@ -70,7 +78,8 @@ namespace Zaliczenie_02._2025
                             }
                             else
                             {
-                                AccountAcces ac = new AccountAcces(newName, newSurename, newPassword, newLogin);
+                                NewUsersRequests nu = new NewUsersRequests(newName, newSurename, newPassword, newLogin);
+                                //AccountAcces ac = new AccountAcces(newName, newSurename, newPassword, newLogin);
                                 break;
                             }
                         }
@@ -90,5 +99,46 @@ namespace Zaliczenie_02._2025
             }
             Console.ReadKey();
         }
+
+        static void AdminInterface()
+        {
+            Console.WriteLine("taki użytkownik istnieje");
+            Console.WriteLine("Ten użytkownik jest Administratorem serwisu");
+            Console.WriteLine();
+            Console.WriteLine("1. Potwierdz nowych użytkowników.");
+            Console.WriteLine();
+            Console.Write("Opcja : ");
+            int option = int.Parse(Console.ReadLine());
+            
+            switch (option)
+            {
+                case 1:
+                    Console.WriteLine("wybierz prośbę");
+                    Console.WriteLine();
+                    for (int i = 0; i < NewUsersRequests.ReturnRequestNumber(); i++)
+                    {
+
+                        string file = Path.GetFileName($"{NewUsersRequests.ReturnRequestList().GetValue(i)}");
+                        string fileName = file.Replace(".txt", "");
+                        Console.WriteLine($"{i+1}. {fileName}");
+                    }
+                    break;
+
+            }
+
+            
+
+            DataAndFilesManagement.DirectoriesCreator();
+            DataAndFilesManagement.DeleteUnnecessaryDirectories();
+        }
+        static void UserInterface()
+        {
+            Console.WriteLine("taki użytkownik istnieje");
+
+            DataAndFilesManagement.DirectoriesCreator();
+            DataAndFilesManagement.DeleteUnnecessaryDirectories();
+        }
+
     }
+    
 }

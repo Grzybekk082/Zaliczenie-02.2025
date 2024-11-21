@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="AccountAcces.cs" />
     <Compile Include="DataAndFilesManagement.cs" />
+    <Compile Include="NewUsersRequests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgramSupport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

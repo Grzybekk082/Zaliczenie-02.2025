@@ -11,6 +11,7 @@ namespace Zaliczenie_02._2025
     {
         
         static string pathOfDirectory = Path.Combine($"{ProgramSupport.ActualyPathReturn()}\\Service\\Accounts\\usersFiles");
+        static string directoryPath = Path.Combine($"{ProgramSupport.ActualyPathReturn()}\\Service\\Accounts\\usersData");
         static string pathOfUsers = Path.Combine();
         static int directoryEqual=Directory.GetDirectories(pathOfDirectory).Length;
 
@@ -19,7 +20,7 @@ namespace Zaliczenie_02._2025
 //Po prawidłowym zalogowaniu do serwisu
         static internal void DirectoriesCreator()
         {
-            for(int i = 1; i <= AccountAcces.ReturnUsersNumber(); i++)
+            for(int i = 1; i <= AccountAcces.ReturnUsersNumber(directoryPath); i++)
             {
                 var t1=AccountAcces.ReturnInfo(i);
                 if (Directory.Exists($"{pathOfDirectory}\\{t1.Item1}_{t1.Item2}"))
@@ -65,7 +66,7 @@ namespace Zaliczenie_02._2025
         static internal bool IsPathExist(string path)
         {
             bool exist=false;
-            for (int i = 1; i <= AccountAcces.ReturnUsersNumber(); i++)
+            for (int i = 1; i <= AccountAcces.ReturnUsersNumber(directoryPath); i++)
             {
                 var t1 = AccountAcces.ReturnInfo(i);
 
