@@ -7,8 +7,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
+using Zaliczenie_02._2025.Classes;
+using Zaliczenie_02._2025.User;
+using Zaliczenie_02._2025.Admin;
 namespace Zaliczenie_02._2025
+
+
 {
     internal class Program
     {
@@ -31,7 +35,7 @@ namespace Zaliczenie_02._2025
                 login = Console.ReadLine();
                 Console.Write("Hasło : ");
                 password = Console.ReadLine();
-                Console.WriteLine();
+                Console.Clear();
                 bool isCorect = AccountAcces.LogIn(login, password).Item1;
                 if (isCorect)
                 {
@@ -54,6 +58,7 @@ namespace Zaliczenie_02._2025
                     Console.WriteLine("Nie masz konta? załóż je, wpsiz 'TAK'");
                     if (Console.ReadLine() == "TAK")
                     {
+                        Console.Clear();
                         for (; ; )
                         {
                             Console.WriteLine(@"/-------------------------------------\");
@@ -68,6 +73,7 @@ namespace Zaliczenie_02._2025
                             newPassword = Console.ReadLine();
                             Console.WriteLine("Utwórz login : ");
                             newLogin = Console.ReadLine();
+                            Console.Clear();
 
                             if (!AccountAcces.IsLoginFree(newName))
                             {
@@ -102,34 +108,16 @@ namespace Zaliczenie_02._2025
 
         static void AdminInterface()
         {
-            Console.WriteLine("taki użytkownik istnieje");
-            Console.WriteLine("Ten użytkownik jest Administratorem serwisu");
-            Console.WriteLine();
-            Console.WriteLine("1. Potwierdz nowych użytkowników.");
-            Console.WriteLine();
-            Console.Write("Opcja : ");
-            int option = int.Parse(Console.ReadLine());
-            
-            switch (option)
+            Stack<Page> navigationStack = new Stack<Page> ();
+            navigationStack.Push (new MainPageAdmin());
+
+            while (navigationStack.Count > 0)
             {
-                case 1:
-                    Console.WriteLine("wybierz prośbę");
-                    Console.WriteLine();
-                    for (int i = 0; i < NewUsersRequests.ReturnRequestNumber(); i++)
-                    {
-
-                        string file = Path.GetFileName($"{NewUsersRequests.ReturnRequestList().GetValue(i)}");
-                        string fileName = file.Replace(".txt", "");
-                        Console.WriteLine($"{i+1}. {fileName}");
-                    }
-                    break;
-
+                var currentPage = navigationStack.Peek();
+                currentPage.Display(navigationStack);
             }
-
-            
-
-            DataAndFilesManagement.DirectoriesCreator();
-            DataAndFilesManagement.DeleteUnnecessaryDirectories();
+            Console.WriteLine("Aplikacja zakończyła ");
+            Thread.Sleep(2000);
         }
         static void UserInterface()
         {

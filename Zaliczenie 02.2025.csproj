@@ -43,15 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountAcces.cs" />
-    <Compile Include="DataAndFilesManagement.cs" />
-    <Compile Include="NewUsersRequests.cs" />
+    <Compile Include="Admin\ConfirmRequests.cs" />
+    <Compile Include="Admin\MainPage.cs" />
+    <Compile Include="Classes\AccountAcces.cs" />
+    <Compile Include="Classes\DataAndFilesManagement.cs" />
+    <Compile Include="Classes\NewUsersRequests.cs" />
+    <Compile Include="Classes\Page.cs" />
+    <Compile Include="Classes\ProgramSupport.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="ProgramSupport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User\MainPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Admin\ConfirmRequestsOptions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

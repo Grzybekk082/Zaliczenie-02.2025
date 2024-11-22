@@ -4,8 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zaliczenie_02._2025.Classes;
+using Zaliczenie_02._2025.User;
+using Zaliczenie_02._2025.Admin;
 
-namespace Zaliczenie_02._2025
+namespace Zaliczenie_02._2025.Classes
 {
        internal class AccountAcces
     {
