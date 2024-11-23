@@ -28,7 +28,7 @@ namespace Zaliczenie_02._2025.Admin
             switch (option)
             {
                 case 1:
-                    navigationStack.Push(new ConfirmRequests());
+                    navigationStack.Push(new ConfirmRequestsPage());
                     Console.Clear();
                     break;
 

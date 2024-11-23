@@ -30,7 +30,7 @@ namespace Zaliczenie_02._2025.Classes
         {
             string userId = $"request{ReturnUsersNumber(path) + 1}.txt";
             string userPath = $"{path}\\{userId}";
-            string content = $"{name}\n{surename}";
+            string content = $"{name}\n{surename}\n{password}\n{login}";
             File.AppendAllText(userPath, content);
         }
 

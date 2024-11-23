@@ -43,8 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\ConfirmRequests.cs" />
-    <Compile Include="Admin\MainPage.cs" />
+    <Compile Include="Admin\ConfirmRequestsOptions\UserRequestPage.cs" />
+    <Compile Include="Admin\ConfirmRequestsPage.cs" />
+    <Compile Include="Admin\MainPageAdmin.cs" />
     <Compile Include="Classes\AccountAcces.cs" />
     <Compile Include="Classes\DataAndFilesManagement.cs" />
     <Compile Include="Classes\NewUsersRequests.cs" />
@@ -52,13 +53,11 @@
     <Compile Include="Classes\ProgramSupport.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User\MainPage.cs" />
+    <Compile Include="User\MainPageUser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Admin\ConfirmRequestsOptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
